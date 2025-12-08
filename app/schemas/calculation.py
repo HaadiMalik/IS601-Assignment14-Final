@@ -36,6 +36,7 @@ class CalculationType(str, Enum):
     SUBTRACTION = "subtraction"
     MULTIPLICATION = "multiplication"
     DIVISION = "division"
+    EXPONENTIATION = "exponentiation"
 
 class CalculationBase(BaseModel):
     """
@@ -126,6 +127,9 @@ class CalculationBase(BaseModel):
         """
         if len(self.inputs) < 2:
             raise ValueError("At least two numbers are required for calculation")
+        # For exponentiation we require exactly two inputs: [base, exponent]
+        if self.type == CalculationType.EXPONENTIATION and len(self.inputs) != 2:
+            raise ValueError("Exponentiation requires exactly two numbers: [base, exponent]")
         if self.type == CalculationType.DIVISION:
             # Prevent division by zero (skip the first value as numerator)
             if any(x == 0 for x in self.inputs[1:]):
@@ -140,7 +144,8 @@ class CalculationBase(BaseModel):
         json_schema_extra={
             "examples": [
                 {"type": "addition", "inputs": [10.5, 3, 2]},
-                {"type": "division", "inputs": [100, 2]}
+                {"type": "division", "inputs": [100, 2]},
+                {"type": "exponentiation", "inputs": [2, 8]}
             ]
         }
     )

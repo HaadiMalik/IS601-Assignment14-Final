@@ -7,6 +7,7 @@ from app.models.calculation import (
     Subtraction,
     Multiplication,
     Division,
+    Exponentiation,
 )
 
 # Helper function to create a dummy user_id for testing.
@@ -150,3 +151,68 @@ def test_invalid_inputs_for_division():
     division = Division(user_id=dummy_user_id(), inputs=[10])
     with pytest.raises(ValueError, match="Inputs must be a list with at least two numbers."):
         division.get_result()
+
+### exponent tests
+def test_exponentiation_get_result():
+    """
+    Test that Exponentiation.get_result returns the correct power.
+    """
+    inputs = [2, 8]
+    exp = Exponentiation(user_id=dummy_user_id(), inputs=inputs)
+    result = exp.get_result()
+    assert result == 256, f"Expected 256, got {result}"
+
+
+def test_exponentiation_negative_exponent():
+    """
+    Test exponentiation with a negative exponent.
+    """
+    inputs = [2, -3]
+    exp = Exponentiation(user_id=dummy_user_id(), inputs=inputs)
+    assert exp.get_result() == pytest.approx(2 ** -3)
+
+
+def test_exponentiation_fractional_exponent():
+    """
+    Test exponentiation with a fractional exponent.
+    """
+    inputs = [9, 0.5]
+    exp = Exponentiation(user_id=dummy_user_id(), inputs=inputs)
+    assert exp.get_result() == pytest.approx(3.0)
+
+
+def test_exponentiation_invalid_inputs_count():
+    """
+    Test that Exponentiation.get_result raises when wrong number of inputs provided.
+    """
+    exp = Exponentiation(user_id=dummy_user_id(), inputs=[2])
+    with pytest.raises(ValueError, match="Exponentiation requires exactly two numbers"):
+        exp.get_result()
+
+
+def test_exponentiation_non_list_inputs_raises():
+    """
+    Non-list inputs should raise a ValueError.
+    """
+    exp = Exponentiation(user_id=dummy_user_id(), inputs="not-a-list")
+    with pytest.raises(ValueError, match="Inputs must be a list of numbers."):
+        exp.get_result()
+
+
+def test_exponentiation_non_numeric_raises():
+    """
+    Non-numeric exponent should raise a ValueError during computation.
+    """
+    exp = Exponentiation(user_id=dummy_user_id(), inputs=[2, 'a'])
+    with pytest.raises(ValueError, match="Error computing exponentiation"):
+        exp.get_result()
+
+
+def test_calculation_factory_exponentiation():
+    """
+    Ensure Calculation.create returns an Exponentiation instance and computes correctly.
+    """
+    calc = Calculation.create('exponentiation', dummy_user_id(), [3, 3])
+    assert isinstance(calc, Exponentiation)
+    assert calc.get_result() == 27
+###

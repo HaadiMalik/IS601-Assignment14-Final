@@ -229,6 +229,32 @@ def test_create_calculation_division(base_url: str):
     # Expected result: 100 / 2 / 5 = 10
     assert "result" in data and data["result"] == 10, f"Expected result 10, got {data.get('result')}"
 
+### exponent tests
+def test_create_calculation_exponentiation(base_url: str):
+    user_data = {
+        "first_name": "Calc",
+        "last_name": "Exponent",
+        "email": f"calc.exp{uuid4()}@example.com",
+        "username": f"calc_exp_{uuid4()}",
+        "password": "SecurePass123!",
+        "confirm_password": "SecurePass123!"
+    }
+    token_data = register_and_login(base_url, user_data)
+    access_token = token_data["access_token"]
+    headers = {"Authorization": f"Bearer {access_token}"}
+    url = f"{base_url}/calculations"
+    payload = {
+        "type": "exponentiation",
+        "inputs": [2, 8],
+        "user_id": "ignored"
+    }
+    response = requests.post(url, json=payload, headers=headers)
+    assert response.status_code == 201, f"Exponentiation calculation creation failed: {response.text}"
+    data = response.json()
+    # Expected result: 2 ** 8 = 256
+    assert "result" in data and data["result"] == 256, f"Expected result 256, got {data.get('result')}"
+###
+
 def test_list_get_update_delete_calculation(base_url: str):
     user_data = {
         "first_name": "Calc",
