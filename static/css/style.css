@@ -1,0 +1,89 @@
+
+:root{
+	--bg: #f6f8fb;
+	--card: #ffffff;
+	--muted: #6b7280;
+	--primary: #2563eb;
+	--primary-600: #1e40af;
+	--accent: #06b6d4;
+	--success: #16a34a;
+	--danger: #dc2626;
+	--glass: rgba(255,255,255,0.6);
+	--radius: 12px;
+}
+
+/* Global layout */
+html,body{height:100%;}
+body{
+	background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+	color: #0f172a;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+/* Site header */
+.site-header{
+	background: linear-gradient(90deg, rgba(37,99,235,1), rgba(79,70,229,1));
+	color: #fff;
+	box-shadow: 0 8px 30px rgba(2,6,23,0.12);
+}
+
+
+.container-centered{max-width:1100px;margin-left:auto;margin-right:auto;padding:0 1rem}
+
+.card{
+	background: var(--card);
+	border-radius: var(--radius);
+	box-shadow: 0 6px 20px rgba(2,6,23,0.06), 0 1px 2px rgba(2,6,23,0.04);
+	border: 1px solid rgba(15,23,42,0.04);
+}
+.card-compact{padding:1rem}
+
+main .card{
+	border-radius: var(--radius);
+	box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+	border: 1px solid rgba(15,23,42,0.05);
+}
+
+/* Hero */
+.hero-gradient{
+	background: linear-gradient(90deg,var(--primary), var(--primary-600));
+}
+
+.btn{
+	display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+	padding:.6rem 1rem;border-radius:10px;border:none;cursor:pointer;font-weight:600;
+}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 6px 18px rgba(37,99,235,0.18)}
+.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:transparent;border:1px solid rgba(15,23,42,0.06)}
+
+input[type="text"], input[type="password"], input[type="email"], select, textarea{
+	border-radius:10px;border:1px solid rgba(2,6,23,0.06);padding:.6rem .8rem;outline:none;width:100%;
+	transition:box-shadow .18s, border-color .12s, transform .12s;
+}
+input:focus, select:focus, textarea:focus{box-shadow:0 6px 18px rgba(37,99,235,0.09);border-color:var(--primary)}
+
+.form-note{color:var(--muted);font-size:.85rem}
+
+h1,h2,h3{color: #0f172a}
+
+table{border-collapse:separate;border-spacing:0}
+thead th{background:transparent}
+tbody tr{transition:background-color .15s ease, transform .15s ease}
+tbody tr:hover{background:linear-gradient(90deg, rgba(37,99,235,0.03), rgba(37,99,235,0.02));transform:translateY(-2px)}
+td,th{padding:.9rem .8rem}
+
+footer{background:linear-gradient(180deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));color:rgba(255,255,255,0.86)}
+
+#toastContainer .bg-blue-500{border-radius:10px;padding:.6rem .9rem}
+
+@media (max-width:640px){
+	.card{border-radius:10px}
+	.hero-gradient h1{font-size:1.6rem}
+}
+
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-size:.75rem;background:rgba(2,6,23,0.04);color:var(--muted)}
+
+:focus{outline: none}
+*:focus-visible{outline: 3px solid rgba(37,99,235,0.18);outline-offset:2px;border-radius:8px}
