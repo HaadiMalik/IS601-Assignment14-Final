@@ -1,6 +1,6 @@
 ## DockerHub Repository
 
-[haadimalik/assignment-14-final](https://hub.docker.com/r/haadimalik/assignmeent-14-final)
+[haadimalik/assignment-14-final](https://hub.docker.com/r/haadimalik/assignment-14-final)
 <br>
 
 # 📦 Project Setup
